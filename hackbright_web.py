@@ -26,11 +26,11 @@ def get_student():
 def get_student_form():
     """Show form for searching for a student."""
 
-  
+
     return render_template("student_search.html")
 
 
-@app.route("/student-add-form")
+@app.route("/student-add")  # Can be the same route as below since this is using GET method
 def student_add_form():
 	"""Renders html template"""
 
