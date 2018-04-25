@@ -14,9 +14,10 @@ def get_student():
     github = request.args.get('github')  # Gets github from form or URL arguments
 
     first, last, github = hackbright.get_student_by_github(github)  # Unpacks tuple
+    project_grades = hackbright.get_grades_by_github(github)  # List of tuples
 
     #passes first, last, github to html
-    html = render_template('student_info.html', first=first, last=last, github=github)
+    html = render_template('student_info.html', first=first, last=last, github=github, project_grades=project_grades)
 
     #return rendered template with args
     return html
@@ -50,6 +51,15 @@ def student_add():
     return render_template("success.html", github=github, first_name=first_name, last_name=last_name)
     #return redirect('/success')
 
+@app.route("/project")
+def project_listing():
+	"""Displays details about a student's project"""
+	title = request.args.get('title')  # Get title from URL parameters
+
+	title, description, max_grade = hackbright.get_project_by_title(title)  # (title, description, max_grade) from projects table
+
+	return render_template("project_listing.html", title=title, description=description, max_grade=max_grade)
+	
 
 
 if __name__ == "__main__":
