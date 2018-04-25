@@ -56,9 +56,25 @@ def project_listing():
 	"""Displays details about a student's project"""
 	title = request.args.get('title')  # Get title from URL parameters
 
-	title, description, max_grade = hackbright.get_project_by_title(title)  # (title, description, max_grade) from projects table
+	title, description, max_grade = hackbright.get_project_by_title(title)  # returns (title, description, max_grade) from projects table
 
-	return render_template("project_listing.html", title=title, description=description, max_grade=max_grade)
+	all_grades = hackbright.get_grades_by_title(title) # returns list of tuples (github, grade)
+	
+	# instantiate dictionary to store github(key) = first, last github(values) 
+	student_records = {}  
+
+	for tp in all_grades:  # tp = tuple
+		
+		github = tp[0]
+		student_data = hackbright.get_student_by_github(github)  # tuple (first_name, last_name, github)
+		# unpack return values from get_student_by_github function
+		#first_name = student_data[0]
+		#last_name = student_data[1]
+		#github = student_data[2] 
+		first_name, last_name, github = student_data
+		student_records[github] = [first_name, last_name, github]
+
+	return render_template("project_listing.html", title=title, description=description, max_grade=max_grade, all_grades=all_grades, student_records=student_records)
 	
 
 

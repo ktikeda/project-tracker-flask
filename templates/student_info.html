@@ -10,6 +10,7 @@
   <ul>
   {% for item in project_grades %}
   	
+  	<!-- item [0] = string of project title; item[1] = string of grade -->
   	<li><a href="/project?title={{ item[0] }}">{{ item[0] }}</a>: {{ item[1] }}</li>
   
   {% endfor %}

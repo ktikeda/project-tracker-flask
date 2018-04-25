@@ -11,5 +11,22 @@
 <br>
 <p>Max Grade: {{ max_grade }}</p>
 
+<h2>Grades</h2>
+<ul> 
+
+{% for row in all_grades %}
+	<li><a href="/student?github={{ student_records[row[0]][2] }} ">{{ student_records[row[0]][0] }} {{ student_records[row[0]][1] }}</a>: {{ row[1] }}</li>
+
+{% endfor %}
+
+<!-- all_grades = [(github, grade)]
+student_record = {github: [first_name, last_name, github]}
+student_records[row[0]] = value of student_records[github]
+complete_record = student_records[row[0]]
+student_records[row[0]][0] = complete_record[0]
+
+ -->
+</ul>
+
 </body>
 </html>
